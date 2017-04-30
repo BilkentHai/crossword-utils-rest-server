@@ -115,4 +115,14 @@ def get_tfidf_scores(URLs):
 def analyze_search_result(query, count):
 	URL_list = bing_search.search(query, count)
 	print(URL_list)
-	return get_tfidf_scores(URL_list)
+	return reformat_dictionary(get_tfidf_scores(URL_list))
+
+def reformat_dictionary(old_dict):
+	new_list = []
+	temp_dict = {}
+	
+	for word, score in old_dict.items():
+		temp_dict = { "word": word, "score": score }
+		new_list.append(temp_dict)
+
+	return new_list
