@@ -49,12 +49,12 @@ def search_wordenp():
     return json.dumps(result) + "\n", 200
 
 # example request:
-# curl -i -H "Content-Type: application/json" -X POST -d '{"ml":"Seasoning on an everything bagel"}' http://localhost:5000/datamuse/wiki_search
+# curl -i -H "Content-Type: application/json" -X POST -d '{"ml":"Seasoning on an everything bagel", "word_length": 4}' http://localhost:5000/datamuse/wiki_search
 @app.route('/datamuse/wiki_search', methods=['POST'])
 def wiki_search():
-    if not request.json or not 'ml' in request.json:
+    if not request.json or not 'ml' in request.json or not 'word_length' in request.json:
         abort(400)
-    result = datamuse.wiki_search(request.json['ml'])
+    result = datamuse.wiki_search(request.json['ml'], request.json['word_length'])
     return json.dumps(result) + "\n", 200
 
 # example request:
