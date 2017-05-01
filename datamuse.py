@@ -55,7 +55,6 @@ that extra lexical knowledge be included with the results.
 
 def search_datamuse_wordenp(ml, sl=None, sp=None, code=None, max_res=100, v=None ):  # did not understand qe
     #md = '&md=f'  # meta data, hardwired to word part of speech
-    ml = re.sub(" ", "+", ml)  # change spaces w/ +
     req_base = "https://api.datamuse.com/words?max=" + str(max_res) + '&'
     req_base = req_base + "ml=" + ml
 
@@ -89,6 +88,7 @@ def search_datamuse_wordenp(ml, sl=None, sp=None, code=None, max_res=100, v=None
 
 # there may not be a need for this
 def wiki_search(ml, word_length, sl=None, sp=None, code=None, max_res=100, qe=None):
+    print(ml)
     len = ""
     for i in range(word_length) :
         len += '?'
@@ -107,6 +107,7 @@ def search_datamuse_sug(s, max_res):
 
 
 def datamuse_answer_list(clue, word_length):
+    print(clue)
     len = ""
     for i in range(word_length) :
         len += '?'
