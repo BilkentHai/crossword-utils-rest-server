@@ -97,7 +97,7 @@ def wiki_search(ml, word_length, sl=None, sp=None, code=None, max_res=100, qe=No
         if "tags" in el:
             el.pop("tags")
             print(el)
-    return json_data
+    return ans_list
 
 # autocomplete
 def search_datamuse_sug(s, max_res):
