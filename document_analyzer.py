@@ -11,8 +11,11 @@ def process_document(URL):
 	s.headers= {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:53.0) Gecko/20100101 Firefox/53.0'}
 
 	# get document in html form 
-	response = s.get(URL)
-	raw_text = response.text
+	try:
+		response = s.get(URL)
+		raw_text = response.text
+	except:
+		raw_text = ""
 
 	# convert html to text
 	document = html2text.html2text(raw_text).encode('utf-8')
@@ -112,17 +115,18 @@ def get_tfidf_scores(URLs):
 					term_tfidf_dict[term] = URL_termtfdict_dict[URL][term] * term_idf_dict[term]
 	return term_tfidf_dict
 
-def analyze_search_result(query, count):
+def analyze_search_result(query, count, length):
 	URL_list = bing_search.search(query, count)
 	print(URL_list)
-	return reformat_dictionary(get_tfidf_scores(URL_list))
+	return reformat_dictionary(get_tfidf_scores(URL_list), length)
 
-def reformat_dictionary(old_dict):
+def reformat_dictionary(old_dict, length):
 	new_list = []
 	temp_dict = {}
 	
 	for word, score in old_dict.items():
-		temp_dict = { "word": word, "score": score }
-		new_list.append(temp_dict)
+		if len(word) == length:
+			temp_dict = { "word": word, "score": score }
+			new_list.append(temp_dict)
 
 	return new_list

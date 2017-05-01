@@ -29,12 +29,12 @@ def get_tfidf_scores():
     return jsonify(result), 200
 
 # example request:
-# curl -i -H "Content-Type: application/json" -X POST -d '{"query": "lol", "count": 5 }' http://localhost:5000/document_analyzer/analyze_search_result
+# curl -i -H "Content-Type: application/json" -X POST -d '{"query": "lol", "count": 5, "length:" 4 }' http://localhost:5000/document_analyzer/analyze_search_result
 @app.route('/document_analyzer/analyze_search_result', methods=['POST'])
 def analyze_search_result():
-    if not request.json or not 'query' in request.json or not 'count' in request.json:
+    if not request.json or not 'query' in request.json or not 'count' in request.json or not 'length' in request.json:
         abort(400)
-    result = document_analyzer.analyze_search_result(request.json['query'], request.json['count'])
+    result = document_analyzer.analyze_search_result(request.json['query'], request.json['count'], request.json['length'])
     return jsonify(result), 200
 
 ### datamuse methods ###
