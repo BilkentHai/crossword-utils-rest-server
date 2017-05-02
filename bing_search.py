@@ -12,7 +12,7 @@ def search(query,count):
     
     params = urllib.parse.urlencode({
         # Request parameters
-        'q': query + ("" if query == "crossword" else "-crossword"), # avoid using crossword websites
+        'q': query + ("" if query == "crossword" else " -crossword"), # avoid using crossword websites
         'count': count,
         'offset': '0',
         'mkt': 'en-us',
