@@ -5,7 +5,7 @@ from flask import make_response
 from flask import request
 from flask import make_response
 import json
-import document_analyzer, dictionary, datamuse 
+import document_analyzer, dictionary, datamuse, syn_ant
 
 app = Flask(__name__)
 
@@ -65,6 +65,25 @@ def answer_list():
         abort(400)
     result = datamuse.datamuse_answer_list(request.json['ml'], request.json['word_length'])
     return json.dumps(result) + "\n", 200
+
+
+# example request:
+# curl -i -H "Content-Type: application/json" -X POST -d '{"str":"selim", "word_length": 5}' http://localhost:5000/syn_ant/find_all_synonyms
+@app.route('/syn_ant/find_all_synonyms', methods=['POST'])
+def find_all_synonyms():
+    if not request.json or not 'str' in request.json or not 'word_length' in request.json:
+        abort(400)
+    result = syn_ant.find_all_synonyms(request.json['str'], request.json['word_length'])
+    return json.dumps(list(result)) + "\n", 200
+
+# example request:
+# curl -i -H "Content-Type: application/json" -X POST -d '{"str":"selim", "word_length": 5}' http://localhost:5000/syn_ant/find_all_antonyms
+@app.route('/syn_ant/find_all_antonyms', methods=['POST'])
+def find_all_antonyms():
+    if not request.json or not 'str' in request.json or not 'word_length' in request.json:
+        abort(400)
+    result = syn_ant.find_all_antonyms(request.json['str'], request.json['word_length'])
+    return json.dumps(list(result)) + "\n", 200
 
 @app.errorhandler(404)
 def not_found(error):
