@@ -12,12 +12,14 @@ def search(query,count):
     
     params = urllib.parse.urlencode({
         # Request parameters
-        'q': query,
+        'q': query + ("" if query == "crossword" else "-crossword"), # avoid using crossword websites
         'count': count,
         'offset': '0',
         'mkt': 'en-us',
         'safesearch': 'Moderate',
     })
+
+    print(params)
     
     try:
         conn = http.client.HTTPSConnection('api.cognitive.microsoft.com')
