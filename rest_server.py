@@ -66,6 +66,7 @@ def answer_list():
     result = datamuse.datamuse_answer_list(request.json['ml'], request.json['word_length'])
     return json.dumps(result) + "\n", 200
 
+### syn_ant methods ###
 
 # example request:
 # curl -i -H "Content-Type: application/json" -X POST -d '{"str":"selim", "word_length": 5}' http://localhost:5000/syn_ant/find_all_synonyms
